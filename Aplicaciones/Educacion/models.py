@@ -6,3 +6,8 @@ class Carrera(models.Model):
     nombre_car=models.CharField(max_length=50)
     fecha_creacion_car=models.DateField()
     telefono_car=models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.nombre_car
+
+
