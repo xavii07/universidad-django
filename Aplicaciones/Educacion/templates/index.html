@@ -1,12 +1,8 @@
-{% extends 'plantilla.html' %} {% block titulo %}<title>
+{% extends 'plantilla.html' %} {% load static %} {% block titulo %}<title>
   Inicio Universidad</title
 >{% endblock titulo %} {% block contenido %}
 <div class="d-flex flex-column justify-content-center align-items-center">
   <h1 class="mt-4 mb-4">Inicio Universidad</h1>
-  <img
-    class="w-50"
-    src="https://images.pexels.com/photos/137618/pexels-photo-137618.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-    alt=""
-  />
+  <img class="w-50" src="{% static 'img/universidad.jpeg' %}" alt="" />
 </div>
 {% endblock contenido %}
