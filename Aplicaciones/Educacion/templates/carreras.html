@@ -1,0 +1,41 @@
+{% extends 'plantilla.html' %} {% load static %} {% block titulo %}
+<title>Universidad Carreras</title>
+{% endblock titulo %} {% block contenido %}
+<div class="container">
+  <h1 class="text-center mt-4">Carreras</h1>
+
+  <button class="btn btn-primary mb-4">+ Agregar Carrera</button>
+
+  {% if carreras %}
+  <div class="table-responsive">
+    <table class="table table-hover table-striped text-center">
+      <thead class="table-primary">
+        <tr>
+          <th>Nombre</th>
+          <th>Fecha Creacion</th>
+          <th>Telefono</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for carrera in carreras %}
+        <tr>
+          <td>{{carrera.nombre_car}}</td>
+          <td>{{carrera.fecha_creacion_car}}</td>
+          <td>{{carrera.telefono_car}}</td>
+          <td>
+            <a href="" class="btn badge bg-info">Editar</a>
+            <a href="" class="btn badge bg-danger">Eliminar</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="alert alert-warning mt-4 text-center">
+    No hay registros de carreras
+  </div>
+  {% endif %}
+</div>
+{% endblock contenido %}
