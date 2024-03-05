@@ -4,7 +4,14 @@
 <div class="container">
   <h1 class="text-center mt-4">Carreras</h1>
 
-  <button class="btn btn-primary mb-4">+ Agregar Carrera</button>
+  <button
+    type="button"
+    class="btn btn-primary mb-4"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+  >
+    + Agregar Carrera
+  </button>
 
   {% if carreras %}
   <div class="table-responsive">
@@ -37,5 +44,77 @@
     No hay registros de carreras
   </div>
   {% endif %}
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Carrera</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'crear_carrera' %}" method="post">
+          {% csrf_token %}
+          <div class="mb-4">
+            <label for="" class="form-label">Nombre</label>
+            <input
+              type="text"
+              placeholder="Sistemas de Informacion"
+              id="nombre_car"
+              name="nombre_car"
+              required
+              class="form-control"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="" class="form-label">Fecha Creacion</label>
+            <input
+              type="date"
+              id="fecha_creacion_car"
+              name="fecha_creacion_car"
+              required
+              class="form-control"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="" class="form-label">Telefono</label>
+            <input
+              type="text"
+              placeholder="0945879541"
+              id="telefono_car"
+              name="telefono_car"
+              required
+              class="form-control"
+            />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary">
+              Guardar Carrera
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock contenido %}
