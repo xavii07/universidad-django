@@ -21,3 +21,9 @@ def crear_carrera(request):
 
         Carrera.objects.create(nombre_car=nombre, fecha_creacion_car=fecha_creacion, telefono_car=telefono)
         return redirect('/carreras')
+
+def eliminar_carrera(request, id):
+    carreraDb = Carrera.objects.get(id_car=id)
+
+    carreraDb.delete()
+    return redirect('/carreras')
