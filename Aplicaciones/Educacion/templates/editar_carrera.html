@@ -1,60 +1,10 @@
 {% extends 'plantilla.html' %} {% load static %} {% block titulo %}
-<title>Universidad Carreras</title>
+<title>Editar Carrera</title>
 {% endblock titulo %} {% block contenido %}
 <div class="container">
-  <h1 class="text-center mt-4">Carreras</h1>
-
-  <button
-    type="button"
-    class="btn btn-primary mb-4"
-    data-bs-toggle="modal"
-    data-bs-target="#exampleModal"
-  >
-    + Agregar Carrera
-  </button>
-
-  {% if carreras %}
-  <div class="table-responsive">
-    <table class="table table-hover table-striped text-center">
-      <thead class="table-primary">
-        <tr>
-          <th>Nombre</th>
-          <th>Fecha Creacion</th>
-          <th>Telefono</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for carrera in carreras %}
-        <tr>
-          <td>{{carrera.nombre_car}}</td>
-          <td>{{carrera.fecha_creacion_car}}</td>
-          <td>{{carrera.telefono_car}}</td>
-          <td>
-            <a
-              href="{% url 'editar_carrera' carrera.id_car %}"
-              class="btn badge bg-info"
-              >Editar</a
-            >
-            <a
-              href="{% url 'eliminar_carrera' carrera.id_car %}"
-              class="btn badge bg-danger"
-              >Eliminar</a
-            >
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  {% else %}
-  <div class="alert alert-warning mt-4 text-center">
-    No hay registros de carreras
-  </div>
-  {% endif %}
+  <h1 class="mt-4 text-center">Editar Carrera</h1>
 </div>
 
-<!-- Modal -->
 <div
   class="modal fade"
   id="exampleModal"
@@ -65,7 +15,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Carrera</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Carrera</h1>
         <button
           type="button"
           class="btn-close"
@@ -85,6 +35,7 @@
               name="nombre_car"
               required
               class="form-control"
+              value="{{carrera.nombre_car}}"
             />
           </div>
           <div class="mb-4">
@@ -95,6 +46,7 @@
               name="fecha_creacion_car"
               required
               class="form-control"
+              value="{{carrera.fecha_creacion_car|date:'Y-m-d'}}"
             />
           </div>
           <div class="mb-4">
@@ -106,18 +58,19 @@
               name="telefono_car"
               required
               class="form-control"
+              value="{{carrera.telefono_car}}"
             />
           </div>
           <div class="modal-footer">
-            <button
+            <a
+              href="{% url 'carreras' %}"
               type="button"
               class="btn btn-secondary"
-              data-bs-dismiss="modal"
             >
               Cancelar
-            </button>
+            </a>
             <button type="submit" class="btn btn-primary">
-              Guardar Carrera
+              Actualizar Carrera
             </button>
           </div>
         </form>
@@ -125,4 +78,13 @@
     </div>
   </div>
 </div>
+
+<script>
+  const modal = document.getElementById("exampleModal");
+  document.addEventListener("DOMContentLoaded", () => {
+    const myModal = new bootstrap.Modal(modal);
+    myModal.show();
+  });
+</script>
+
 {% endblock contenido %}

@@ -27,3 +27,10 @@ def eliminar_carrera(request, id):
 
     carreraDb.delete()
     return redirect('/carreras')
+
+def editar_carrera(request, id):
+    carreraDb = Carrera.objects.get(id_car=id)
+
+    return render(request, 'editar_carrera.html', {
+      "carrera": carreraDb
+    })
