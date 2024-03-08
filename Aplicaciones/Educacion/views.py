@@ -34,3 +34,18 @@ def editar_carrera(request, id):
     return render(request, 'editar_carrera.html', {
       "carrera": carreraDb
     })
+
+def procesar_editar_carrera(request):
+    if request.method == 'POST':
+        id = request.POST['id_car']
+        nombre = request.POST['nombre_car']
+        fecha_creacion = request.POST['fecha_creacion_car']
+        telefono = request.POST['telefono_car']
+
+        carrera_editar = Carrera.objects.get(id_car=id)
+        carrera_editar.nombre_car = nombre
+        carrera_editar.fecha_creacion_car = fecha_creacion
+        carrera_editar.telefono_car = telefono
+        carrera_editar.save()
+
+        return redirect('/carreras')

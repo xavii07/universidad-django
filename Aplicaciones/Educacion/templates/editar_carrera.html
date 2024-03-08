@@ -11,21 +11,23 @@
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
+  data-bs-backdrop="static"
 >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Carrera</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
       </div>
       <div class="modal-body">
-        <form action="{% url 'crear_carrera' %}" method="post">
+        <form action="{% url 'procesar_editar_carrera' %}" method="post">
           {% csrf_token %}
+          <input
+            type="text"
+            value="{{carrera.id_car}}"
+            hidden
+            name="id_car"
+            id="id_car"
+          />
           <div class="mb-4">
             <label for="" class="form-label">Nombre</label>
             <input
