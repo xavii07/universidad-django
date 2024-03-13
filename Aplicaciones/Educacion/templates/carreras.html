@@ -37,7 +37,8 @@
               >Editar</a
             >
             <a
-              href="{% url 'eliminar_carrera' carrera.id_car %}"
+              href="javascript:void(0)"
+              onclick="eliminarFila('/eliminar_carrera/{{carrera.id_car}}', 'Carrera')"
               class="btn badge bg-danger"
               >Eliminar</a
             >

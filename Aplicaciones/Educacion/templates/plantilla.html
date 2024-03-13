@@ -28,6 +28,13 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+    <!--! Izitoast -->
+    <script src="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/js/iziToast.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/izitoast@1.4.0/dist/css/iziToast.min.css"
+    />
+    <script src="{% static 'js/messages.js' %}"></script>
   </head>
 
   <body>
@@ -93,6 +100,14 @@
     </nav>
     <!--! Main -->
     <main>{% block contenido %}{% endblock contenido %}</main>
+    {% for message in messages %}
+    <script>
+      iziToast.success({
+        title: "EXITO!",
+        message: "{{message}}",
+      });
+    </script>
+    {% endfor %}
   </body>
   <!--! Bootstrap JS -->
   <script src="{% static 'library/bootstrap/bootstrap.min.js' %}"></script>
