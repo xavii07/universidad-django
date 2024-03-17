@@ -14,7 +14,7 @@
   </button>
 
   {% if carreras %}
-  <div class="table-responsive">
+  <div class="table-responsive mb-4">
     <table class="table table-hover table-striped text-center" id="tabla">
       <thead class="table-primary">
         <tr>
@@ -75,7 +75,11 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form action="{% url 'crear_carrera' %}" method="post">
+        <form
+          action="{% url 'crear_carrera' %}"
+          method="post"
+          id="form-carrera"
+        >
           {% csrf_token %}
           <div class="mb-4">
             <label for="" class="form-label">Nombre</label>
@@ -128,5 +132,6 @@
 </div>
 
 <script src="{% static 'js/tabla.js' %}"></script>
+<script src="{% static 'js/validate.js' %}"></script>
 
 {% endblock contenido %}
