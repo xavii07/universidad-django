@@ -6,6 +6,7 @@ class Carrera(models.Model):
     nombre_car=models.CharField(max_length=50)
     fecha_creacion_car=models.DateField()
     telefono_car=models.CharField(max_length=10)
+    logo_car=models.FileField(upload_to='carreras', null=True)
 
 
     def __str__(self):
