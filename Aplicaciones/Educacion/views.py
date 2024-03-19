@@ -19,8 +19,9 @@ def crear_carrera(request):
         nombre = request.POST['nombre_car']
         fecha_creacion = request.POST['fecha_creacion_car']
         telefono = request.POST['telefono_car']
+        logo = request.FILES.get('logo_car')
 
-        Carrera.objects.create(nombre_car=nombre, fecha_creacion_car=fecha_creacion, telefono_car=telefono)
+        Carrera.objects.create(nombre_car=nombre, fecha_creacion_car=fecha_creacion, telefono_car=telefono, logo_car=logo)
         messages.success(request, 'Carrera creada correctamente')
         return redirect('/carreras')
 
@@ -44,11 +45,14 @@ def procesar_editar_carrera(request):
         nombre = request.POST['nombre_car']
         fecha_creacion = request.POST['fecha_creacion_car']
         telefono = request.POST['telefono_car']
+        logo = request.FILES.get('logo_car')
 
         carrera_editar = Carrera.objects.get(id_car=id)
         carrera_editar.nombre_car = nombre
         carrera_editar.fecha_creacion_car = fecha_creacion
         carrera_editar.telefono_car = telefono
+        if logo is not None:
+            carrera_editar.logo_car = logo
         carrera_editar.save()
 
         messages.success(request, 'Carrera actualizada correctamente')

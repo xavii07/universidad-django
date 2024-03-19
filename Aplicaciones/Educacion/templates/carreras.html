@@ -18,6 +18,7 @@
     <table class="table table-hover table-striped text-center" id="tabla">
       <thead class="table-primary">
         <tr>
+          <th>Logo</th>
           <th>Nombre</th>
           <th>Fecha Creacion</th>
           <th>Telefono</th>
@@ -27,6 +28,13 @@
       <tbody>
         {% for carrera in carreras %}
         <tr>
+          <td>
+            {% if carrera.logo_car %}
+            <img src="{{carrera.logo_car.url}}" alt="" width="50" />
+            {% else %}
+            <p>S/N</p>
+            {% endif %}
+          </td>
           <td>{{carrera.nombre_car}}</td>
           <td>{{carrera.fecha_creacion_car}}</td>
           <td>{{carrera.telefono_car}}</td>
@@ -79,6 +87,7 @@
           action="{% url 'crear_carrera' %}"
           method="post"
           id="form-carrera"
+          enctype="multipart/form-data"
         >
           {% csrf_token %}
           <div class="mb-4">
@@ -111,6 +120,17 @@
               name="telefono_car"
               required
               class="form-control"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="" class="form-label">Logo</label>
+            <input
+              type="file"
+              class="form-control"
+              required
+              name="logo_car"
+              id="logo_car"
+              accept="image/*"
             />
           </div>
           <div class="modal-footer">

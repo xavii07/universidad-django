@@ -19,7 +19,11 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Carrera</h1>
       </div>
       <div class="modal-body">
-        <form action="{% url 'procesar_editar_carrera' %}" method="post">
+        <form
+          action="{% url 'procesar_editar_carrera' %}"
+          method="post"
+          enctype="multipart/form-data"
+        >
           {% csrf_token %}
           <input
             type="text"
@@ -61,6 +65,23 @@
               required
               class="form-control"
               value="{{carrera.telefono_car}}"
+            />
+          </div>
+          <div class="mb-4">
+            {% if carrera.logo_car %}
+            <label for="" class="form-label">Logo actual</label>
+            <br />
+            <img src="{{carrera.logo_car.url}}" alt="" width="200" />
+            {% endif %}
+          </div>
+          <div class="mb-4">
+            <label for="" class="form-label">Logo</label>
+            <input
+              type="file"
+              class="form-control"
+              name="logo_car"
+              id="logo_car"
+              accept="image/*"
             />
           </div>
           <div class="modal-footer">
