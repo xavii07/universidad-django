@@ -28,7 +28,7 @@ def eliminar_curso(request, id):
 
     cursoDbb.delete()
     messages.success(request, 'Curso borrado de la base de datos')
-    return redirect('/curso')
+    return redirect('/cursos')
 
 def editar_curso(request, id):
     cursoDbb = Curso.objects.get(id_cur=id)

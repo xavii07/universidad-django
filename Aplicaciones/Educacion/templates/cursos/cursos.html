@@ -1,0 +1,131 @@
+{% extends 'plantilla.html' %} {% load static %} {% block titulo %}
+<title>Universidad Cursos</title>
+{% endblock titulo %} {% block contenido %}
+<div class="container">
+  <h1 class="text-center mt-4">Cursos</h1>
+
+  <button
+    type="button"
+    class="btn btn-primary mb-4"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+  >
+    + Agregar Curso
+  </button>
+
+  {% if cursos %}
+  <div class="table-responsive mb-4">
+    <table class="table table-hover table-striped text-center" id="tabla">
+      <thead class="table-primary">
+        <tr>
+          <th>Carera</th>
+          <th>Nivel</th>
+          <th>Aula</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for curso in cursos %}
+        <tr>
+          <td>{{curso.fk_id_car.nombre_car}}</td>
+          <td>{{curso.nivel_cur}}</td>
+          <td>{{curso.aula_cur}}</td>
+          <td>
+            <a
+              href="{% url 'editar_curso' curso.id_cur %}"
+              class="btn badge bg-info"
+              >Editar</a
+            >
+            <a
+              href="javascript:void(0)"
+              onclick="eliminarFila('/eliminar_curso/{{curso.id_cur}}', 'Curso')"
+              class="btn badge bg-danger"
+              >Eliminar</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="alert alert-warning mt-4 text-center">
+    No hay registros de cursos
+  </div>
+  {% endif %}
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Curso</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'crear_curso' %}" method="post" id="form-curso">
+          {% csrf_token %}
+          <div class="mb-4">
+            <label for="" class="form-label">Nivel</label>
+            <input
+              type="text"
+              placeholder="Primero"
+              id="nivel_cur"
+              name="nivel_cur"
+              required
+              class="form-control"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="" class="form-label">Aula</label>
+            <input
+              type="number"
+              id="aula_cur"
+              name="aula_cur"
+              required
+              class="form-control"
+              placeholder="2"
+              min="1"
+              max="100"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="" class="form-label">Carrera</label>
+            <select class="form-control" name="fk_id_car" id="fk_id_car">
+              <option value="">--Seleccione una carrera--</option>
+              {% for carrera in carreras %}
+              <option value="{{carrera.id_car}}">{{carrera.nombre_car}}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary">Guardar Curso</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{% static 'js/tabla.js' %}"></script>
+
+{% endblock contenido %}
