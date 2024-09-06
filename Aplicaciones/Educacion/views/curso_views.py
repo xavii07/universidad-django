@@ -34,7 +34,7 @@ def editar_curso(request, id):
     cursoDbb = Curso.objects.get(id_cur=id)
     carrerasDbb = Carrera.objects.all()
 
-    return redirect(request, 'cursos/editar_curso.html', {
+    return render(request, 'cursos/editar_curso.html', {
         "curso": cursoDbb,
         "carreras": carrerasDbb
     })

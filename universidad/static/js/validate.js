@@ -24,3 +24,32 @@ $("#form-carrera").validate({
     },
   },
 });
+
+$("#form-curso").validate({
+  rules: {
+    nivel_cur: {
+      required: true,
+      maxlength: 50,
+    },
+    aula_cur: {
+      required: true,
+      digits: true,
+    },
+    fk_id_car: {
+      required: true,
+    },
+  },
+  messages: {
+    nivel_cur: {
+      required: "Nivel es obligatorio",
+      maxlength: "Maximo caracteres 50",
+    },
+    aula_cur: {
+      required: "Aula obligatoria",
+      digits: "Solamente numeros",
+    },
+    fk_id_car: {
+      required: "Carrera obligatoria",
+    },
+  },
+});
