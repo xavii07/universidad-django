@@ -115,10 +115,20 @@
     <main>{% block contenido %}{% endblock contenido %}</main>
     {% for message in messages %}
     <script>
-      iziToast.success({
-        title: "EXITO!",
-        message: "{{message}}",
-      });
+      if ("{{message.tags}}" === "success") {
+        iziToast.success({
+          title: "EXITO!",
+          message: "{{message}}",
+        });
+      }
+
+      if ("{{message.tags}}" === "error") {
+        iziToast.error({
+          title: "ALERTA!",
+          message: "{{message}}",
+          position: "topCenter",
+        });
+      }
     </script>
     {% endfor %}
   </body>
