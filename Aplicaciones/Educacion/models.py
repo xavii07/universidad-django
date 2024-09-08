@@ -16,7 +16,7 @@ class Curso(models.Model):
     id_cur=models.AutoField(primary_key=True)
     nivel_cur=models.CharField(max_length=50)
     aula_cur=models.IntegerField()
-    fk_id_car=models.ForeignKey(Carrera, on_delete=models.CASCADE)
+    fk_id_car=models.ForeignKey(Carrera, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.nivel_cur
