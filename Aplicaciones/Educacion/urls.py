@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import carrera_views, curso_views
+from .views import carrera_views, curso_views, materia_views
 
 
 urlpatterns = [
@@ -16,4 +16,10 @@ urlpatterns = [
     path('eliminar_curso/<id>', curso_views.eliminar_curso, name="eliminar_curso"),
     path('editar_curso/<id>', curso_views.editar_curso, name="editar_curso"),
     path('procesar_editar_curso/', curso_views.procesar_editar_curso, name="procesar_editar_curso"),
+    #Materias
+    path('materias/', materia_views.materias, name="materias"),
+    path('crear_materia/', materia_views.crear_materia, name="crear_materia"),
+    path('eliminar_materia/<id>', materia_views.eliminar_materia, name="eliminar_materia"),
+    path('editar_materia/<id>', materia_views.editar_materia, name="editar_materia"),
+    path('procesar_editar_materia/', materia_views.procesar_editar_materia, name="procesar_editar_materia"),
 ]

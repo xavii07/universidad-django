@@ -1,0 +1,124 @@
+{% extends 'plantilla.html' %} {% load static %} {% block titulo %}
+<title>Universidad Editar Materia</title>
+{% endblock titulo %} {% block contenido %}
+
+<div class="container">
+  <h1 class="mt-4 text-center">Editar Materia</h1>
+</div>
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Materia</h1>
+      </div>
+      <div class="modal-body">
+        <form
+          action="{% url 'procesar_editar_materia' %}"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          {% csrf_token %}
+          <input
+            type="text"
+            value="{{materia.id_mat}}"
+            hidden
+            name="id_mat"
+            id="id_mat"
+          />
+          <div class="mb-4">
+            <label for="" class="form-label">Nombre</label>
+            <input
+              type="text"
+              placeholder="Algoritmos"
+              id="nombre_mat"
+              name="nombre_mat"
+              required
+              class="form-control"
+              value="{{materia.nombre_mat}}"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="" class="form-label">Creditos</label>
+            <input
+              type="number"
+              id="creditos_mat"
+              name="creditos_mat"
+              required
+              class="form-control"
+              placeholder="2"
+              min="1"
+              max="100"
+              value="{{materia.creditos_mat}}"
+            />
+          </div>
+          <div class="mb-4">
+            {% if materia.silabo_mat %}
+            <label for="" class="form-label">Silabo Actual</label>
+            <div>
+              <a href="{{materia.silabo_mat.url}}" target="_blank">
+                <img
+                  src="{% static 'img/pdf.png' %}"
+                  alt="{{materia.nombre_mat}}"
+                  width="50"
+                />
+              </a>
+            </div>
+            {% endif %}
+            <label for="" class="form-label mt-3">Actualizar Silabo</label>
+            <input
+              type="file"
+              id="silabo_mat"
+              name="silabo_mat"
+              class="form-control"
+              accept=".pdf"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="" class="form-label">Curso</label>
+            <select class="form-control" name="fk_id_cur" id="fk_id_cur">
+              <option value="">--Seleccione un curso--</option>
+              {% for curso in cursos %}
+              <option value="{{curso.id_cur}}">
+                {{curso.nivel_cur}} - {{curso.fk_id_car.nombre_car}}
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="modal-footer">
+            <a
+              href="{% url 'materias' %}"
+              type="button"
+              class="btn btn-secondary"
+            >
+              Cancelar
+            </a>
+            <button type="submit" class="btn btn-primary">
+              Actualizar Materia
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById("exampleModal");
+  document.addEventListener("DOMContentLoaded", () => {
+    const myModal = new bootstrap.Modal(modal);
+    myModal.show();
+  });
+
+  document.getElementById("fk_id_cur").value = "{{materia.fk_id_cur.id_cur}}";
+</script>
+
+{% endblock contenido %}

@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from ..models import Carrera, Curso
 from django.contrib import messages
+from django.db.models import ProtectedError
+
 
 def cursos(request):
 
@@ -24,11 +26,15 @@ def crear_curso(request):
         return redirect('/cursos')
 
 def eliminar_curso(request, id):
-    cursoDbb = Curso.objects.get(id_cur=id)
+    try:
+        cursoDbb = Curso.objects.get(id_cur=id)
 
-    cursoDbb.delete()
-    messages.success(request, 'Curso borrado de la base de datos')
-    return redirect('/cursos')
+        cursoDbb.delete()
+        messages.success(request, 'Curso borrado de la base de datos')
+    except ProtectedError:
+        messages.error(request, 'No se puede borrar curso porque esta relacionado con otra tabla')
+    finally:
+        return redirect('/cursos')
 
 def editar_curso(request, id):
     cursoDbb = Curso.objects.get(id_cur=id)

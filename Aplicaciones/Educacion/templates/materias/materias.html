@@ -1,0 +1,167 @@
+{% extends 'plantilla.html' %} {% load static %} {% block titulo %}
+<title>Universidad Materias</title>
+{% endblock titulo %} {% block contenido %}
+<div class="container">
+  <h1 class="text-center mt-4">Materias</h1>
+
+  <button
+    type="button"
+    class="btn btn-primary mb-4"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+  >
+    + Agregar Materia
+  </button>
+
+  {% if materias %}
+  <div class="table-responsive mb-4">
+    <table class="table table-hover table-striped text-center" id="tabla">
+      <thead class="table-primary">
+        <tr>
+          <th>Silabo</th>
+          <th>Carrera</th>
+          <th>Curso</th>
+          <th>Nombre</th>
+          <th>Creditos</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for materia in materias %}
+        <tr>
+          <td>
+            {% if materia.silabo_mat %}
+            <div>
+              <a href="{{materia.silabo_mat.url}}" target="_blank">
+                <img src="{% static 'img/pdf.png' %}" alt="silabo" width="30" />
+              </a>
+            </div>
+            {% else %}
+            <p>N/A</p>
+            {% endif %}
+          </td>
+
+          <td>{{materia.fk_id_cur.fk_id_car.nombre_car}}</td>
+          <td>{{materia.fk_id_cur.nivel_cur}}</td>
+          <td>{{materia.nombre_mat}}</td>
+          <td>{{materia.creditos_mat}}</td>
+          <td>
+            <a
+              href="{% url 'editar_materia' materia.id_mat %}"
+              class="btn badge bg-info"
+              >Editar</a
+            >
+            <a
+              href="javascript:void(0)"
+              onclick="eliminarFila('/eliminar_materia/{{materia.id_mat}}', 'Materia')"
+              class="btn badge bg-danger"
+              >Eliminar</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="alert alert-warning mt-4 text-center">
+    No hay registros de materias
+  </div>
+  {% endif %}
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Materia</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          action="{% url 'crear_materia' %}"
+          method="post"
+          id="form-materia"
+          enctype="multipart/form-data"
+        >
+          {% csrf_token %}
+          <div class="mb-4">
+            <label for="" class="form-label">Nombre</label>
+            <input
+              type="text"
+              placeholder="Algoritmos"
+              id="nombre_mat"
+              name="nombre_mat"
+              required
+              class="form-control"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="" class="form-label">Creditos</label>
+            <input
+              type="number"
+              id="creditos_mat"
+              name="creditos_mat"
+              required
+              class="form-control"
+              placeholder="2"
+              min="1"
+              max="100"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="" class="form-label">Silabo</label>
+            <input
+              type="file"
+              id="silabo_mat"
+              name="silabo_mat"
+              required
+              class="form-control"
+              accept=".pdf"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="" class="form-label">Curso</label>
+            <select class="form-control" name="fk_id_cur" id="fk_id_cur">
+              <option value="">--Seleccione un curso--</option>
+              {% for curso in cursos %}
+              <option value="{{curso.id_cur}}">
+                {{curso.nivel_cur}} - {{curso.fk_id_car.nombre_car}}
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary">
+              Guardar Materia
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{% static 'js/tabla.js' %}"></script>
+<script src="{% static 'js/validate.js' %}"></script>
+
+{% endblock contenido %}

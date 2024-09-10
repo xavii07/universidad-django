@@ -53,3 +53,38 @@ $("#form-curso").validate({
     },
   },
 });
+
+$("#form-materia").validate({
+  rules: {
+    nombre_mat: {
+      required: true,
+      maxlength: 50,
+    },
+    creditos_mat: {
+      required: true,
+      digits: true,
+    },
+    silabo_mat: {
+      required: true,
+    },
+    fk_id_cur: {
+      required: true,
+    },
+  },
+  messages: {
+    nombre_mat: {
+      required: "Nombre es obligatorio",
+      maxlength: "Maximo caracteres 50",
+    },
+    creditos_mat: {
+      required: "Creditos obligatoria",
+      digits: "Solamente numeros",
+    },
+    silabo_mat: {
+      required: "Silabo obligatoria",
+    },
+    fk_id_cur: {
+      required: "Curso obligatorio",
+    },
+  },
+});
