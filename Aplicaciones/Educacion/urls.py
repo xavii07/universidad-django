@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import carrera_views, curso_views, materia_views
+from .views import carrera_views, curso_views, materia_views, correo_views
 
 
 urlpatterns = [
@@ -22,4 +22,7 @@ urlpatterns = [
     path('eliminar_materia/<id>', materia_views.eliminar_materia, name="eliminar_materia"),
     path('editar_materia/<id>', materia_views.editar_materia, name="editar_materia"),
     path('procesar_editar_materia/', materia_views.procesar_editar_materia, name="procesar_editar_materia"),
+    #Correo
+    path('correo/', correo_views.correo, name="correo"),
+    path('enviar_correo/', correo_views.enviar_correo, name="enviar_correo"),
 ]

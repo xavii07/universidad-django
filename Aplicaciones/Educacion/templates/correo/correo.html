@@ -1,0 +1,49 @@
+{% extends 'plantilla.html' %} {% load static %} {% block titulo %}
+<title>Universidad Carreras</title>
+{% endblock titulo %} {% block contenido %}
+
+<div
+  class="container d-flex vh-100 flex-column justify-content-center align-items-center"
+>
+  <h3>Enviar Correo</h3>
+  <form action="{% url 'enviar_correo' %}" method="POST" id="form-correo">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col">
+        <label for="" class="form-label">Destinatario</label>
+        <input
+          type="email"
+          class="form-control"
+          required
+          id="destinatario"
+          name="destinatario"
+        />
+      </div>
+      <div class="col">
+        <label for="" class="form-label">Asunto</label>
+        <input
+          type="text"
+          class="form-control"
+          required
+          id="asunto"
+          name="asunto"
+        />
+      </div>
+      <div class="mt-2">
+        <label for="" class="form-label">Mensaje</label>
+        <textarea
+          class="form-control"
+          required
+          id="mensaje"
+          name="mensaje"
+          rows="6"
+        ></textarea>
+      </div>
+      <div class="mt-4">
+        <input type="submit" value="Enviar" class="btn btn-primary w-100" />
+      </div>
+    </div>
+  </form>
+</div>
+
+{% endblock contenido %}
