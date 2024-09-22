@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import carrera_views, curso_views, materia_views, correo_views
-
+from django.contrib.auth import views as auth_views
+from .views.login_views import CustomLoginForm, CustomLoginView
 
 urlpatterns = [
     #Carrera
@@ -25,4 +26,7 @@ urlpatterns = [
     #Correo
     path('correo/', correo_views.correo, name="correo"),
     path('enviar_correo/', correo_views.enviar_correo, name="enviar_correo"),
+    #Auth
+    path('login/', CustomLoginView.as_view(template_name="auth/login.html", authentication_form=CustomLoginForm), name="login"),
+    path('logout/', auth_views.LogoutView.as_view(), name="logout"),
 ]

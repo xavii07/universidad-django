@@ -2,10 +2,14 @@ from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
+
+@login_required(login_url='/login/')
 def correo(request):
     return render(request, 'correo/correo.html')
 
+@login_required(login_url='/login/')
 def enviar_correo(request):
     if request.method == 'POST':
         destinatario = request.POST.get('destinatario')

@@ -142,4 +142,5 @@ EMAIL_HOST_USER = 'tu_correo'
 EMAIL_HOST_PASSWORD = 'tu_password'
 EMAIL_USE_TLS = True
 
-
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login'

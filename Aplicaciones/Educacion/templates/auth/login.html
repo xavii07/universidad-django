@@ -1,0 +1,17 @@
+{% extends 'plantilla_auth.html' %} {% load static %} {% block titulo %}
+<title>Iniciar Sesión</title>
+{% endblock titulo %} {% block contenido %}
+
+<div
+  class="container d-flex vh-100 align-items-center justify-content-center flex-column"
+>
+  <h3>Iniciar Sesión</h3>
+
+  <form method="post">
+    {% csrf_token %} {{ form.as_p }}
+
+    <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+  </form>
+</div>
+
+{% endblock contenido %}

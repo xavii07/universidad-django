@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 from ..models import Carrera, Curso
 from django.contrib import messages
 from django.db.models import ProtectedError
+from django.contrib.auth.decorators import login_required
 
-
+@login_required(login_url='/login/')
 def cursos(request):
 
     cursosDbb = Curso.objects.all()
@@ -14,6 +15,7 @@ def cursos(request):
         "carreras": carrerasDbb
     })
 
+@login_required(login_url='/login/')
 def crear_curso(request):
     if request.method == 'POST':
         nivel = request.POST['nivel_cur']
@@ -25,6 +27,7 @@ def crear_curso(request):
         messages.success(request, 'Curso creado correctamente')
         return redirect('/cursos')
 
+@login_required(login_url='/login/')
 def eliminar_curso(request, id):
     try:
         cursoDbb = Curso.objects.get(id_cur=id)
@@ -45,6 +48,7 @@ def editar_curso(request, id):
         "carreras": carrerasDbb
     })
 
+@login_required(login_url='/login/')
 def procesar_editar_curso(request):
     if request.method == 'POST':
         id_cur = request.POST['id_cur']

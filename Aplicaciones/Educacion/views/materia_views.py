@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from ..models import  Curso, Materia
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='/login/')
 def materias(request):
 
     cursosDbb = Curso.objects.all()
@@ -12,6 +14,7 @@ def materias(request):
         "materias": materiasDbb
     })
 
+@login_required(login_url='/login/')
 def crear_materia(request):
     if request.method == 'POST':
         nombre = request.POST['nombre_mat']
@@ -24,6 +27,7 @@ def crear_materia(request):
         messages.success(request, 'Materia creada correctamente')
         return redirect('/materias')
 
+@login_required(login_url='/login/')
 def eliminar_materia(request, id):
     materiaDbb = Materia.objects.get(id_mat=id)
 
@@ -31,6 +35,7 @@ def eliminar_materia(request, id):
     messages.success(request, 'Materia borrado de la base de datos')
     return redirect('/materias')
 
+@login_required(login_url='/login/')
 def editar_materia(request, id):
     materiaDbb = Materia.objects.get(id_mat=id)
     cursosDbb = Curso.objects.all()
@@ -40,6 +45,7 @@ def editar_materia(request, id):
         "cursos": cursosDbb
     })
 
+@login_required(login_url='/login/')
 def procesar_editar_materia(request):
     if request.method == 'POST':
         id_mat = request.POST['id_mat']

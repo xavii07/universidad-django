@@ -2,11 +2,14 @@ from django.shortcuts import render, redirect
 from ..models import Carrera
 from django.contrib import messages
 from django.db.models import ProtectedError
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required(login_url='/login/')
 def inicio(request):
     return render(request, 'index.html')
 
+@login_required(login_url='/login/')
 def carreras(request):
 
     carrerasDbb = Carrera.objects.all()
@@ -15,6 +18,7 @@ def carreras(request):
         "carreras": carrerasDbb
     })
 
+@login_required(login_url='/login/')
 def crear_carrera(request):
     if request.method == 'POST':
         nombre = request.POST['nombre_car']
@@ -26,6 +30,7 @@ def crear_carrera(request):
         messages.success(request, 'Carrera creada correctamente')
         return redirect('/carreras')
 
+@login_required(login_url='/login/')
 def eliminar_carrera(request, id):
     try:
         carreraDb = Carrera.objects.get(id_car=id)
@@ -37,7 +42,7 @@ def eliminar_carrera(request, id):
     finally:
         return redirect('/carreras')
 
-
+@login_required(login_url='/login/')
 def editar_carrera(request, id):
     carreraDb = Carrera.objects.get(id_car=id)
 
@@ -45,6 +50,7 @@ def editar_carrera(request, id):
       "carrera": carreraDb
     })
 
+@login_required(login_url='/login/')
 def procesar_editar_carrera(request):
     if request.method == 'POST':
         id = request.POST['id_car']
